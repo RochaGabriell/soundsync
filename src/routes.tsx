@@ -1,7 +1,7 @@
-import { createBrowserRouter } from "react-router-dom"
+import { createBrowserRouter } from 'react-router-dom'
 import Base from './pages/Base'
-import SearchList from "./components/SearchList"
-import NotFound from "./pages/NotFound"
+import SearchList from './components/SearchList'
+import NotFound from './pages/NotFound'
 
 const routes = createBrowserRouter([
   {

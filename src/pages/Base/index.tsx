@@ -1,27 +1,20 @@
-import styled from 'styled-components'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 
 import Header from '../../components/Header'
 import Sidebar from '../../components/SideBar'
-import useAxios from '../../hooks/useAxios'
+import {ContentWrapper, Container} from './styles'
 
-const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: #1ed760;
-  height: 100%;
-`
-
-const Container = styled.div`
-  display: flex;
-`
+type urlsMethod = {
+  method: string
+  methodRequired: string
+}
 
 const Base = () => {
-  const [search, setSearch] = useState('');
-  const [selectedMethod, setSelectedMethod] = useState({ method: 'artist.search', methodRequired: 'artist' })
+  const [search, setSearch] = useState<string>('');
+  const [selectedMethod, setSelectedMethod] = useState<urlsMethod>({ method: 'artist.search', methodRequired: 'artist' })
 
-  const urls = [
+  const urls: urlsMethod[] = [
     {
       method: 'artist.search',
       methodRequired: 'artist',
@@ -48,8 +41,8 @@ const Base = () => {
     },
   ]
 
-  const handleMethodClick = (methodName) => {
-    setSelectedMethod(methodName);
+  const handleMethodClick = (methodName: urlsMethod): void => {
+    setSelectedMethod(methodName)
   }
 
   return (

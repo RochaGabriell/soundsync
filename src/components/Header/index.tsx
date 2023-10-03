@@ -1,8 +1,17 @@
+import React from 'react'
 import { Container, Search, Title } from './styles'
 
-const Header = ({ setSearch, title }) => {
+interface headerProps {
+  setSearch: React.Dispatch<React.SetStateAction<string>>
+  title: {
+    method: string
+    methodRequired: string
+  }
+}
 
-  function getTitle() {
+const Header = ({ setSearch, title }: headerProps) => {
+
+  function getTitle(): string | undefined{
     if (title.method === 'artist.search') {
       return 'Artistas'
     } else if (title.method === 'album.search') {
@@ -24,7 +33,7 @@ const Header = ({ setSearch, title }) => {
         {title.methodRequired === '' ? null :
           <input
             type="text"
-            placeholder={`Pesquise por um ${getTitle().toLowerCase()}`}
+            placeholder={`Pesquise por um ${getTitle()?.toLowerCase()}`}
             onChange={(e) => setSearch(e.target.value)}
           />}
       </Search>

@@ -6,7 +6,22 @@ import chart from '../../assets/chart.svg'
 
 import { SidebarWrapper, SidebarItem, Icon } from './styles'
 
-const Sidebar = ({ urls, selectedMethod, handleMethodClick }) => {
+interface SideBarProps {
+  urls: {
+    method: string
+    methodRequired: string
+  }[]
+  selectedMethod: {
+    method: string
+    methodRequired: string
+  }
+  handleMethodClick: (methodName: {
+    method: string
+    methodRequired: string
+  }) => void
+}
+
+const Sidebar = ({ urls, selectedMethod, handleMethodClick }: SideBarProps) => {
 
   return (
     <SidebarWrapper>

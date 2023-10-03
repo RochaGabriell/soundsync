@@ -2,14 +2,20 @@ import { useState, useEffect } from 'react'
 
 import api from '../services/api'
 
-function useAxios(url){
-  const [data, setData] = useState([])
-  const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(true)
+type UseAxios<T> = {
+  data: T
+  error: Error
+  loading: boolean
+}
+
+function useAxios<T>(url: string): UseAxios<T>{
+  const [data, setData] = useState<T>({} as T)
+  const [error, setError] = useState<Error|any>(null)
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     if (!url) {
-      setData([])
+      setData({} as T)
       setLoading(false)
       return
     }

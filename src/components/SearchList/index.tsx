@@ -4,9 +4,79 @@ import useAxios from '../../hooks/useAxios'
 import { ContentWrapper, Alert } from './styles'
 import RenderCard from '../RenderCard'
 
+interface outletContext {
+  search: string,
+  selectedMethod: {
+    method: string
+    methodRequired: string
+  }
+}
+
+interface dataJSON {
+  results: {
+    artistmatches?: {
+      artist?: {
+        name: string
+        image: {
+          '#text': string
+        }[]
+      }[]
+    }
+    albummatches?: {
+      album?: {
+        name: string
+        artist: string
+        image: {
+          '#text': string
+        }[]
+      }[]
+    }
+    trackmatches?: {
+      track?: {
+        name: string
+        artist: string
+        image: {
+          '#text': string
+        }[]
+      }[]
+    }
+  }
+  error: Error | any
+  artists?: {
+    artist?: {
+      name: string
+      image: {
+        '#text': string
+      }[]
+    }[]
+  }
+  topalbums?: {
+    album?: {
+      name: string
+      artist: {
+        name: string
+      }
+      image: {
+        '#text': string
+      }[]
+    }[]
+  }
+  tracks?: {
+    track?: {
+      name: string
+      artist: {
+        name: string
+      }
+      image: {
+        '#text': string
+      }[]
+    }[]
+  }
+}
+
 const SearchList = () => {
 
-  const { search, selectedMethod } = useOutletContext()
+  const { search, selectedMethod } = useOutletContext<outletContext>()
   const { method, methodRequired } = selectedMethod
 
   const queryParams = search
@@ -15,10 +85,12 @@ const SearchList = () => {
       ? `?method=${method}`
       : method === 'chart.gettoptracks'
         ? `?method=${method}`
-        : null
+        : ''
 
-  const { data, error, loading } = useAxios(queryParams)
+  const { data, error, loading } = useAxios<dataJSON>(queryParams)
 
+  console.log(data)
+  
   return (
     <ContentWrapper>
       {loading && <Alert><p>Loading...</p></Alert>}
